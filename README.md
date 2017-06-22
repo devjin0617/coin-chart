@@ -1,21 +1,17 @@
 # coin-chart
 
-> A Vue.js project
+> 국내거래소 기준의 코인차트를 정리해줄 프로젝트입니다.
 
-## Build Setup
+## 실행하기 위해서는,
 
 ``` bash
-# install dependencies
+# 의존성 모듈들을 설치합니다.
 npm install
 
 # serve with hot reload at localhost:8080
+# 핫리로드가 가능한 서버를 실행합니다. URL localhost:8080 입니다.
 npm run dev
 
-# build for production with minification
+# 배포시에는 아래 명령어를 이용합니다.
 npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
