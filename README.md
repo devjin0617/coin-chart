@@ -2,6 +2,8 @@
 
 > 국내거래소 기준의 코인차트를 정리해줄 프로젝트입니다.
 
+![](https://github.com/devjin0617/coin-chart/blob/master/image/image.png?raw=true)
+
 ## 실행하기 위해서는,
 
 ``` bash
