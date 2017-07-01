@@ -34,11 +34,11 @@ export default {
       })
 
       if (this.line.yAxis.max < vm.value) {
-        this.line.yAxis.max = parseInt(vm.value) + 1000
+        this.line.yAxis.max = parseInt(vm.value * 1.02)
       }
 
       if (this.line.yAxis.min === 0 || this.line.yAxis.min > value.buy_price) {
-        this.line.yAxis.min = parseInt(value.buy_price) - 1000
+        this.line.yAxis.min = parseInt(value.buy_price * 0.98)
       }
 
       this.line.series[1].data.push({
