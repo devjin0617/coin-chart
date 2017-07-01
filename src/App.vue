@@ -20,6 +20,7 @@ export default {
     this.$http.get(url)
       .then(res => res.data)
       .then(res => {
+        console.log(res)
         vm.apiText = JSON.stringify(res.data)
       })
       .catch(() => {
