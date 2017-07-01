@@ -1,6 +1,6 @@
 <template>
   <div class="echarts">
-    <IEcharts :option="bar" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
+    <IEcharts :option="line" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
   </div>
 </template>
 
@@ -9,22 +9,56 @@ import IEcharts from 'vue-echarts-v3/src/full.vue'
 
 export default {
   props: ['api-data'],
+  watch: {
+    apiData (newValue) {
+      // console.log(newValue)
+
+      var value = JSON.parse(newValue)
+
+      const vm = this
+      this.now = new Date(parseInt(value.date))
+      this.value = value.sell_price
+
+      if (this.line.series[0].data.length > 10) {
+        this.line.series[0].data.shift()
+        this.line.series[1].data.shift()
+      }
+
+      this.line.series[0].data.push({
+        name: vm.now.toString(),
+        value: [
+          // [vm.now.getFullYear(), vm.now.getMonth() + 1, vm.now.getDate()].join('/'),
+          vm.now.getTime(),
+          vm.value
+        ]
+      })
+
+      this.line.series[1].data.push({
+        name: vm.now.toString(),
+        value: [
+          // [vm.now.getFullYear(), vm.now.getMonth() + 1, vm.now.getDate()].join('/'),
+          vm.now.getTime(),
+          value.buy_price
+        ]
+      })
+    }
+  },
   data () {
     return {
       loading: true,
       now: '',
       oneDay: 24 * 3600 * 1000,
       value: '',
-      bar: {
+      line: {
         title: {
-          text: '动态数据 + 时间坐标轴'
+          text: 'LTC 구매차트'
         },
         tooltip: {
           trigger: 'axis',
           formatter: function (params) {
-            params = params[0]
-            var date = new Date(params.name)
-            return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1]
+            var date = new Date(params[0].name)
+            // return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1]
+            return date.getTime() + ':' + params[0].value[1] + ',' + params[1].value[1]
           },
           axisPointer: {
             animation: false
@@ -38,18 +72,25 @@ export default {
         },
         yAxis: {
           type: 'value',
-          boundaryGap: [0, '100%'],
-          splitLine: {
-            show: false
-          }
+          min: 48000,
+          max: 50000
         },
-        series: [{
-          name: '模拟数据',
-          type: 'line',
-          showSymbol: false,
-          hoverAnimation: false,
-          data: []
-        }]
+        series: [
+          {
+            name: 'sell',
+            type: 'line',
+            showSymbol: true,
+            hoverAnimation: false,
+            data: []
+          },
+          {
+            name: 'buy',
+            type: 'line',
+            showSymbol: true,
+            hoverAnimation: false,
+            data: []
+          }
+        ]
       }
     }
   },
@@ -58,12 +99,12 @@ export default {
   },
   methods: {
     onReady () {
-      this.now = +new Date(1997, 9, 3)
-      this.oneDay = 24 * 3600 * 1000
-      this.value = Math.random() * 1000
-      for (let i = 0; i < 2; i++) {
-        this.bar.series[0].data.push(this.randomData())
-      }
+      // this.now = +new Date(1997, 9, 3)
+      // this.oneDay = 24 * 3600 * 1000
+      // this.value = Math.random() * 1000
+      // for (let i = 0; i < 2; i++) {
+      //   this.line.series[0].data.push(this.randomData())
+      // }
       this.loading = false
     },
     onClick () {
