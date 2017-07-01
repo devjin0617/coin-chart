@@ -12,7 +12,7 @@ export default {
   name: 'chart-view',
   data () {
     return {
-      text: 'Hello Page',
+      text: 'Coin Chart',
       ltcData: {},
       etcData: {}
     }
