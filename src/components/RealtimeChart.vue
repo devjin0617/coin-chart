@@ -96,7 +96,12 @@ export default {
             type: 'line',
             showSymbol: true,
             hoverAnimation: false,
-            data: []
+            data: [],
+            lineStyle: {
+              normal: {
+                color: '#34495E'
+              }
+            }
           }
         ]
       }
@@ -142,7 +147,8 @@ export default {
 .echarts {
   margin:auto;
   width:700px;
-  height:300px;
+  height:250px;
+  display:inline-block;
 }
 
 </style>
