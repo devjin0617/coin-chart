@@ -1,7 +1,8 @@
 <template>
   <div>
     {{ text }}
-    <realtime-chart :api-data="ltcData"></realtime-chart>
+    <realtime-chart title="라이트코인" :api-data="ltcData"></realtime-chart>
+    <realtime-chart title="이더리움클래식" :api-data="etcData"></realtime-chart>
   </div>
 </template>
 
@@ -12,7 +13,8 @@ export default {
   data () {
     return {
       text: 'Hello Page',
-      ltcData: {}
+      ltcData: {},
+      etcData: {}
     }
   },
   mounted () {
@@ -21,12 +23,19 @@ export default {
   methods: {
     request () {
       const vm = this
-      const url = '/bithumb/public/ticker/LTC'
-      this.$http.get(url)
+      const url = '/bithumb/public/ticker/'
+      this.$http.get(url + 'LTC')
         .then(res => res.data)
         .then(res => {
           console.log(res)
           vm.ltcData = JSON.stringify(res.data)
+
+          return this.$http.get(url + 'ETC')
+        })
+        .then(res => res.data)
+        .then(res => {
+          console.log(res)
+          vm.etcData = JSON.stringify(res.data)
           setTimeout(() => {
             vm.request()
           }, 1000)

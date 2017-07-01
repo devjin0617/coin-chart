@@ -2,7 +2,6 @@
   <div id="app">
     <img src="./assets/logo.png">
     <router-view></router-view>
-    <div class="text-wrap">{{ apiText }}</div>
   </div>
 </template>
 
@@ -10,9 +9,7 @@
 export default {
   name: 'app',
   data () {
-    return {
-      apiText: 'LTC 정보를 가져오고 있습니다.'
-    }
+
   },
   mounted () {
   }

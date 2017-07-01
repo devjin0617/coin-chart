@@ -8,7 +8,7 @@
 import IEcharts from 'vue-echarts-v3/src/full.vue'
 
 export default {
-  props: ['api-data'],
+  props: ['api-data', 'title'],
   watch: {
     apiData (newValue) {
       // console.log(newValue)
@@ -33,6 +33,14 @@ export default {
         ]
       })
 
+      if (this.line.yAxis.max < vm.value) {
+        this.line.yAxis.max = parseInt(vm.value) + 1000
+      }
+
+      if (this.line.yAxis.min === 0 || this.line.yAxis.min > value.buy_price) {
+        this.line.yAxis.min = parseInt(value.buy_price) - 1000
+      }
+
       this.line.series[1].data.push({
         name: vm.now.toString(),
         value: [
@@ -51,7 +59,7 @@ export default {
       value: '',
       line: {
         title: {
-          text: 'LTC 구매차트'
+          text: this.title
         },
         tooltip: {
           trigger: 'axis',
@@ -72,8 +80,8 @@ export default {
         },
         yAxis: {
           type: 'value',
-          min: 48000,
-          max: 50000
+          min: 0,
+          max: 0
         },
         series: [
           {
