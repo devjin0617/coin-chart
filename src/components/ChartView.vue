@@ -1,6 +1,9 @@
 <template>
   <div>
     <div>
+      <market-cap></market-cap>
+    </div>
+    <div>
       <realtime-chart title="라이트코인" :api-data="ltcData"></realtime-chart>
       <realtime-chart title="이더리움" :api-data="ethData"></realtime-chart>
       <realtime-chart title="비트코인" :api-data="btcData"></realtime-chart>
@@ -13,6 +16,7 @@
 
 <script>
 import RealtimeChart from '@/components/RealtimeChart'
+import MarketCap from '@/components/MarketCap'
 export default {
   name: 'chart-view',
   data () {
@@ -82,7 +86,8 @@ export default {
     }
   },
   components: {
-    'realtime-chart': RealtimeChart
+    'realtime-chart': RealtimeChart,
+    'market-cap': MarketCap
   }
 }
 </script>
